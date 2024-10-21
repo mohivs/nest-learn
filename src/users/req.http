@@ -4,4 +4,6 @@ get http://localhost:3000/users/10
 post http://localhost:3000/users
 Content-Type: application/json
 
-{"name":"ali"}
+{"firstName":"ali",
+"lastName":"usefi"
+}
