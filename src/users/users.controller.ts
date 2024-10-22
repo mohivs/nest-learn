@@ -17,6 +17,7 @@ import {
 import { Request } from 'express';
 import { CreateUserDto } from './Dtos/create-user.dto';
 import { GetUsersParamsDto } from './Dtos/get-users-params.dto';
+import { PatchUserDto } from './Dtos/patch-user.dto';
 
 /**
  * final endpoint /users/id?limit=10&page=1
@@ -46,7 +47,7 @@ export class UsersController {
   }
 
   @Patch()
-  patchUser(@Body() body: any) {
+  patchUser(@Body() body: PatchUserDto) {
     console.log(body);
   }
 }
