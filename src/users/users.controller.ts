@@ -8,11 +8,15 @@ import {
   Ip,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Query,
   Req,
+  ValidationPipe,
 } from '@nestjs/common';
 import { Request } from 'express';
+import { CreateUserDto } from './Dtos/create-user.dto';
+import { GetUsersParamsDto } from './Dtos/get-users-params.dto';
 
 /**
  * final endpoint /users/id?limit=10&page=1
@@ -29,7 +33,7 @@ import { Request } from 'express';
 export class UsersController {
   @Get('/:id?')
   test(
-    @Param('id', ParseIntPipe) param: number | undefined,
+    @Param() param: GetUsersParamsDto,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
   ) {
@@ -37,11 +41,12 @@ export class UsersController {
   }
 
   @Post()
-  test2(@Req() req: Request) {
-    console.log(req);
+  test2(@Req() req: Request, @Body() body: CreateUserDto) {
+    console.log(body);
   }
-  // @Post()
-  // test2(@Body() body: any) {
-  //   console.log(body);
-  // }
+
+  @Patch()
+  patchUser(@Body() body: any) {
+    console.log(body);
+  }
 }

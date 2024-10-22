@@ -5,5 +5,7 @@ post http://localhost:3000/users
 Content-Type: application/json
 
 {"firstName":"ali",
-"lastName":"usefi"
+"lastName":"usefi",
+"email":"mohisls2012",
+"password":"asdasdfasf"
 }
