@@ -18,6 +18,7 @@ import { Request } from 'express';
 import { CreateUserDto } from './Dtos/create-user.dto';
 import { GetUsersParamsDto } from './Dtos/get-users-params.dto';
 import { PatchUserDto } from './Dtos/patch-user.dto';
+import { userService } from './providers/user.service';
 
 /**
  * final endpoint /users/id?limit=10&page=1
@@ -32,13 +33,15 @@ import { PatchUserDto } from './Dtos/patch-user.dto';
 
 @Controller('users')
 export class UsersController {
+  constructor(private userService: userService) {}
   @Get('/:id?')
   test(
     @Param() param: GetUsersParamsDto,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
   ) {
-    console.log(page, limit);
+    // console.log(page, limit);
+    return this.userService.serviceTest();
   }
 
   @Post()
