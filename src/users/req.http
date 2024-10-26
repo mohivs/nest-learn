@@ -9,3 +9,25 @@ Content-Type: application/json
 "email":"mohisls2012",
 "password":"asdasdfasf"
 }
+
+###
+get http://localhost:3000/posts/123
+
+###
+post http://localhost:3000/auth/123
+Content-Type: application/json
+
+{"firstName":"ali",
+"lastName":"usefi",
+"email":"mohisls2012@gmail.com",
+"password":"asdasdfasf"
+}
+
+
+###
+post http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "title":"first post"
+}

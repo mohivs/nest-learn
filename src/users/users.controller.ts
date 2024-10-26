@@ -41,7 +41,6 @@ export class UsersController {
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
   ) {
     // console.log(page, limit);
-    return this.userService.serviceTest();
   }
 
   @Post()
