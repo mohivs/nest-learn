@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsEmail,
   IsEnum,
   isEnum,
   IsISO8601,
@@ -14,6 +15,9 @@ export class CreatePostDto {
   @IsString()
   @IsOptional()
   title?: string;
+
+  @IsEmail()
+  email: string;
 
   // @IsEnum(postStatus, { message: 'ولیو باید یکی از این 4 مورد باشه' })
   // status: postStatus;
