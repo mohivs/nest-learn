@@ -1,6 +1,6 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from 'src/auth/providers/auth.service';
 
 const users = [
   { id: 123, name: 'ali', email: 'ali@test@getMaxListeners.com' },
