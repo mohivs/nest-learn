@@ -13,3 +13,8 @@ Content-Type: application/json
 post http://localhost:3000/auth/login
 
 Content-Type: "application/json"
+
+###
+get http://localhost:3000/protected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWxpIiwiaWF0IjoxNzMwNzc4ODMzLCJleHAiOjE3MzA4NjUyMzN9.cbpnmPkvHwSZ_GhrADj8cQ3m7gsrjYH5qeRznMYx2YM
+

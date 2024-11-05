@@ -37,6 +37,8 @@ export class AuthService {
       { secret: this.configservice.get('SECRET'), expiresIn: '1d' },
     );
 
+    console.log(accessToken);
+
     this.userModel.create({ ...body, password: hashPass });
 
     return {

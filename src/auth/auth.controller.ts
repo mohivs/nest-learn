@@ -1,12 +1,16 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post, SetMetadata } from '@nestjs/common';
 import { AuthService } from './providers/auth.service';
 import { CreateUserDto } from 'src/auth/Dtos/create-user.dto';
+import { Auth } from './decorators/auth.decorator';
+import { authType } from './enums/auth-type.enum';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  // @SetMetadata('authType', 'none')
   @Post('signup')
+  @Auth(authType.None)
   signup(@Body() body: CreateUserDto) {
     const newUser = this.authService.signup(body);
     return newUser;

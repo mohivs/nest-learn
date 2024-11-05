@@ -20,6 +20,7 @@ export class AccessTokenGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     // 2) extract token
     const [_, token] = request.headers.authorization?.split(' ') ?? [];
+    // console.log(token);
     // 3) validate token
     if (!token) throw new UnauthorizedException();
     try {
@@ -27,6 +28,7 @@ export class AccessTokenGuard implements CanActivate {
         secret: this.configService.get('SECRET'),
       });
       request['user'] = payload;
+      console.log(payload);
     } catch (err) {
       throw new UnauthorizedException();
     }
