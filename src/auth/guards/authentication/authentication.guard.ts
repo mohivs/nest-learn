@@ -7,8 +7,12 @@ import { authType } from 'src/auth/enums/auth-type.enum';
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
   private static readonly deafultAuthType = authType.Bearee;
-  private readonly authTypeGuardMap = {
+  private readonly authTypeGuardMap: Record<
+    authType,
+    CanActivate | CanActivate[]
+  > = {
     [authType.Bearee]: this.accessTokenGuard,
+    [authType.None]: { canActivate: () => true },
   };
   constructor(
     private readonly reflector: Reflector,
