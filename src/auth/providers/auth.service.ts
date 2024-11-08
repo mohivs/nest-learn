@@ -49,6 +49,28 @@ export class AuthService {
     };
   }
 
+  async login(email: string, password) {
+    const user = await this.userModel.findOne({ email });
+    console.log(user);
+
+    if (user && (await argon.verify(`${user.password}`, `${password}`))) {
+      const accessToken = await this.jwt.signAsync(
+        { name: user.name },
+        {
+          secret: this.configservice.get('SECRET'),
+          expiresIn: '2d',
+        },
+      );
+      console.log(accessToken);
+      return {
+        status: 200,
+        accessToken,
+        message: 'موفقت امیز',
+      };
+    }
+    throw new BadRequestException('یوزر موجود نیست');
+  }
+
   // async hashing(userPass: string) {
   //   const hash = await argon.hash(userPass);
   //   return hash;

@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProtectedModule } from './protected/protected.module';
+import { UploaderModule } from './uploader/uploader.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ProtectedModule } from './protected/protected.module';
       }),
     }),
     ProtectedModule,
+    UploaderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

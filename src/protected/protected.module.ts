@@ -11,8 +11,8 @@ import { AuthenticationGuard } from 'src/auth/guards/authentication/authenticati
   imports: [JwtModule.register({})],
   providers: [
     ProtectedService,
-    { provide: APP_GUARD, useClass: AuthenticationGuard },
-    AccessTokenGuard,
+    // { provide: APP_GUARD, useClass: AuthenticationGuard },
+    // AccessTokenGuard,
   ],
 })
 export class ProtectedModule {}
