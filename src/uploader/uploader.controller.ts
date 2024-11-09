@@ -1,55 +1,66 @@
 import {
+  StorageFile,
+  UploadedFile,
+  FileInterceptor,
+} from '@blazity/nest-file-fastify';
+import {
   BadRequestException,
   Controller,
   FileTypeValidator,
-  Get,
+  HttpStatus,
   MaxFileSizeValidator,
   ParseFilePipe,
+  ParseFilePipeBuilder,
   Post,
-  UploadedFile,
-  UploadedFiles,
+  Req,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  FileFieldsInterceptor,
-  FileInterceptor,
-  FilesInterceptor,
-} from '@nestjs/platform-express';
-import { Express } from 'express';
+import { FileFormatValidationPipe } from 'src/Test';
 
 @Controller('uploader')
 export class UploaderController {
   @Post('upload')
-  @UseInterceptors(
-    FileFieldsInterceptor(
-      [
-        { name: 'file1', maxCount: 1 },
-        { name: 'file2', maxCount: 1 },
-      ],
-      // {
-      //   dest: 'src/upload',
-      // },
-    ),
-  )
+  @UseInterceptors(FileInterceptor('file', { dest: 'src/upload' }))
   async uploadFile(
-    @UploadedFiles()
-    // new ParseFilePipe({
-    //   validators: [
-    //     new FileTypeValidator({ fileType: 'image/jpeg' }),
-    //     // new MaxFileSizeValidator({
-    //     //   maxSize: 1.5 * 1024 * 1024,
-    //     //   message: 'فایل نباید بیشتر از 1.5 مگ باشد',
-    //     // }),
-    //   ],
-    //   // errorHttpStatusCode: 404,
-    //   // fileIsRequired: false,
-    // }),
-    file: {
-      file1?: Express.Multer.File[];
-      file2?: Express.Multer.File[];
-    },
+    @UploadedFile(
+      new FileFormatValidationPipe(),
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({
+            maxSize: 1000,
+            message: 'حجم فایل باید کم باشد',
+          }),
+        ],
+      }),
+    )
+    file: StorageFile,
   ) {
-    // console.log(file);
-    return file;
+    console.log(file.size);
+  }
+
+  @Post('upload2')
+  @UseInterceptors(FileInterceptor('file', { dest: 'src/upload' }))
+  async upladfile2(
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({
+          fileType: 'jpeg',
+        })
+        .addMaxSizeValidator({
+          maxSize: 1000,
+        })
+        .build({
+          errorHttpStatusCode: HttpStatus['ریده'],
+        }),
+    )
+    file: Express.Multer.File,
+  ) {}
+
+  @Post('regular')
+  async test(@Req() req) {
+    const data = await req.file();
+    const buffer = await data.toBuffer();
+
+    console.log(buffer.length);
   }
 }
