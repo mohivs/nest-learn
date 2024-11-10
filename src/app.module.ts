@@ -23,9 +23,9 @@ import { BullModule } from '@nestjs/bullmq';
         uri: config.get<string>('DATABASE'),
       }),
     }),
-    BullModule.forRoot({
-      connection: { host: 'localhost', port: 3000 },
-    }),
+    // BullModule.forRoot({
+    //   connection: { host: 'localhost', port: 3000 },
+    // }),
     ProtectedModule,
     UploaderModule,
   ],
